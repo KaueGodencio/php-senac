@@ -29,7 +29,7 @@ function db(): PDO
             );
 
 
-         /*    echo "<b> Conectado com sucesso ao banco! </b>"; */
+            echo "<b> Conectado com sucesso ao banco! </b>";
             // Aqui é somente para teste
 
 
