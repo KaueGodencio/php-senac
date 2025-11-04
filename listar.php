@@ -1,139 +1,155 @@
 <?php
+// ============================================================================
+// CONEXÃO E INCLUSÕES
+// ============================================================================
 
+// Inclui o arquivo de conexão com o banco de dados
 require __DIR__ . '/projeto01/includes/db.php';
+
+// Inclui o cabeçalho (caso tenha um HTML padrão com menus, etc.)
 include __DIR__ . "/projeto01/includes/header.php";
-//inicio - Lógica da busca
-// =================================================
+// ============================================================================
+// LÓGICA DA BUSCA
+// ============================================================================
 
-//$$_GET pega o valor digitado no camoi de busca (se existir)
+// Captura o termo digitado na busca (se existir)
+$busca = trim($_GET['busca'] ?? ''); // Se não existir, fica vazio
 
-$busca = trim($_GET['busca'] ?? '');
-// GET  é usado aqui pq estamos apenas consultado dados, não salvado
-
-// ?? = é como se fosse um "então"
-
-// Verificar se o usuário digitou algo
+// Se o usuário digitou algo no campo de busca
 if ($busca !== '') {
 
-    // Se tiver texto na busca, o SQL filtra pelo nome ou e-mail
+    // Consulta SQL que filtra nome OU e-mail conforme o termo digitado
     $sql = 'SELECT id, nome, email, telefone, foto, data_cadastro
             FROM cadastros
             WHERE nome LIKE :busca OR email LIKE :busca
-            ORDER BY id DESC'; // ordena pelos IDs do maior pro menor (cadastros mais novos primeiro)
+            ORDER BY id DESC';
 
-    // prepara o comando SQL
+    // Prepara e executa o comando, substituindo o placeholder :busca
     $stmt = db()->prepare($sql);
-
-    // executa substituindo o placeholder :busca
-    // o % antes e depois permite buscar qualquer parte do nome/email
     $stmt->execute([':busca' => "%$busca%"]);
 } else {
-
+    // Caso não tenha busca, mostra todos os registros
     $sql = 'SELECT id, nome, email, telefone, foto, data_cadastro
-    FROM cadastros
-    ORDER BY id DESC';
+            FROM cadastros
+            ORDER BY id DESC';
 
     $stmt = db()->prepare($sql);
     $stmt->execute();
 }
 
-// ============================================================
-// Exibindo os dados da tabela
-// ============================================================
-
-// fetchAll() busca todos os resultados da consulta SQL e retorna
-// como um array associativo (chave => valor)
-// Exemplo de saída:
-// [
-//     ['id' => 1, 'nome' => 'João', 'email' => 'joao@email.com'],
-//     ['id' => 2, 'nome' => 'Maria', 'email' => 'maria@email.com']
-// ]
-
+// Busca todos os resultados como array associativo
 $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ============================================================
-// Fim – Lógica da busca
-// ============================================================
-?> 
-
+// ============================================================================
+// FIM DA LÓGICA DE BUSCA
+// ============================================================================
+?>
 
 <!doctype html>
-<meta charset="utf-8">
-<title>Lista de Cadastros</title>
+<html lang="pt-br">
 
-<h1>Lista de Cadastros</h1>
+<head>
+    <meta charset="utf-8">
+    <title>Lista de Cadastros</title>
+</head>
 
-<!-- ===== Início – Formulário de busca ===== -->
-<form method="get">
+<body>
 
-    <!-- Campo de texto pré-preenchido com o texto pesquisado -->
-    <!-- htmlspecialchars() → impede códigos HTML maliciosos dentro da busca -->
-    <input type="text" name="busca" placeholder="Pesquisar..." 
-           value="<?= htmlspecialchars($busca) ?>">
+    <h1>Lista de Cadastros</h1>
 
-    <button type="submit">Buscar</button>
+    <!-- =========================================================
+     FORMULÁRIO DE BUSCA
+     ========================================================= -->
+    <form method="get">
+        <!-- Campo de texto (mantém o termo pesquisado, se houver) -->
+        <input type="text" name="busca" placeholder="Pesquisar..."
+            value="<?= htmlspecialchars($busca) ?>">
 
-    <!-- Link para limpar a pesquisa e recarregar a lista completa -->
-    <a href="listar.php">Limpar</a>
-</form>
-<!-- ===== Fim – Formulário de busca ===== -->
-<p><a href="formulario.php"></a></p>
+        <!-- Botão para buscar -->
+        <button type="submit">Buscar</button>
 
-<?php if (!$registros): ?>
-   <!--  Se não houver resultados  */ -->    
-<p>Nenhum cadastro encontrado </p>
+        <!-- Link para limpar a busca -->
+        <a href="listar.php">Limpar</a>
+    </form>
 
-<?php else: ?>
-    <thead>
-        <table border="1" cellpadding="8" cellspacing="0">
-        <tr>
-            <th>ID</th>
-            <th>NOme</th>
-            <th>E-mail</th>
-            <th>Fotos</th>
-            <th>Data de Cadastro</th>
-            <th>Ações</th>
-        </tr>
-    </table>
-    </thead> 
+    <!-- Link para cadastrar novo registro -->
+    <p><a href="cadastro.php">Cadastrar Novo</a></p>
 
-    <tbody>
-        
+    <!-- =========================================================
+     EXIBIÇÃO DOS RESULTADOS
+     ========================================================= -->
+    <?php if (!$registros): ?>
 
-        <?php 
-        // foreach -> estrutura que percore todos os registros do banco 
-        // $registro -> lista com todos os cadastros vindos do banco
-        // $r = representa UM registro por vez dentro do loop      
-        
-        
-        foreach ($registros as $r):
-        ?>
+        <!-- Caso o banco não retorne nenhum registro -->
+        <p>Nenhum cadastro encontrado.</p>
 
-        <tr>
-            <td><?= (int)$r['id' ] ?> </td>
-            <td><?= htmlspecialchars($r['nome']) ?></td>
-            <td><?= htmlspecialchars($r['email']) ?></td>
-            <td><?= htmlspecialchars($r['telefone']) ?></td>
-            <td>
-                <?php if (!empty($r['foto'])): ?>
-                    <img src="<?= htmlspecialchars($r ['foto'])?>" alt="Foto" style="max-width:80px; max-height:80px;"
-                
-                ?>
-                <?php else: ?>
-                    --
-                <?php endif: ?>
-            </td>
+    <?php else: ?>
 
+        <!-- Início da tabela -->
+        <!-- Tabela de usuários -->
+        <table class="table table-striped table-hover align-middle text-center table-bordered w-100">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Foto</th>
+                    <th>Data de Cadastro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
 
+            <tbody>
+                <!-- Loop para percorrer todos os registros -->
+                <?php foreach ($registros as $r): ?>
+                    <tr>
+                        <!-- Exibe o ID -->
+                        <td><?= (int)$r['id'] ?></td>
 
+                        <!-- Exibe o nome -->
+                        <td><?= htmlspecialchars($r['nome'] ?? '') ?></td>
 
+                        <!-- Exibe o e-mail -->
+                        <td><?= htmlspecialchars($r['email'] ?? '') ?></td>
 
+                        <!-- Exibe o telefone -->
+                        <td><?= htmlspecialchars($r['telefone'] ?? '') ?></td>
 
-        </tr>
+                        <!-- Exibe a foto (ou “--” se não tiver) -->
+                        <td>
+                            <?php if (!empty($r['foto'])): ?>
+                                <img src="uploads/<?= htmlspecialchars($r['foto']) ?>"
+                                    alt="Foto do usuário"
+                                    class="img-thumbnail"
+                                    width="80" height="80">
+                            <?php else: ?>
+                                --
+                            <?php endif; ?>
+                        </td>
 
+                        <!-- Exibe a data de cadastro -->
+                        <td><?= htmlspecialchars($r['data_cadastro'] ?? '') ?></td>
 
+                        <!-- Links de ação: editar e deletar -->
+                        <td>
+                            <a href="editar.php?id=<?= (int)$r['id'] ?>"
+                                class="btn btn-sm btn-primary">
+                                Editar
+                            </a>
+                            <a href="deletar.php?id=<?= (int)$r['id'] ?>"
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm('Tem certeza que deseja excluir este registro?')">
+                                Deletar
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
+    <?php endif; ?>
 
+</body>
 
-
-    </tbody>
+</html>
