@@ -13,13 +13,11 @@
 /* include __DIR__ . "/projeto01/includes/header.php";  */
 ?>
 
-<div class="row col-12 m-0 vh-100 bg-body-tertiary">
-    <div class="col-12 col-md-8 p-0">
-        <img src="./assets/img/90-cliente-1.jpg.webp" class="w-100 h-100" alt="" style="border-radius: 0px 30px 30px 30px;">
-    </div>
+<div class="row col-12 m-0 vh-100 bg-body-tertiary justify-content-center bg-body-tertiary">
 
-    <div class="col-12 col-md-4 d-flex justify-content-center align-items-center p-0 bg-body-tertiary">
-        <form class="p-3 mb-5 bg-body-tertiary rounded border border-light w-100" action="salvar.php" method="POST" enctype="multipart/form-data">
+
+    <div class="col-12 col-md-8 col-lg-3 d-flex justify-content-center align-items-center p-0 bs-body-bg ">
+        <form class="p-3 mb-5 bg-body-tertiary rounded border shadow-sm w-100 " action="salvar.php" method="POST" enctype="multipart/form-data">
             <!-- o atributo enctype serve para avisar ao navegador que o formulario vai enviar arquivos e não so texto -->
             <h4 class=" py-4 mb-0"> <b>Preencha o formulário para se cadastrar!</b> </h4>
       

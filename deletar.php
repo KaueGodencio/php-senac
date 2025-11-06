@@ -9,7 +9,7 @@ $id = (int)($_GET['id'] ?? '');
 
 // se o ID for inválido (zero ou vazio), redireciona para lista
 if ($id <= 0) {
-    header('Location: listar.php');
+    header('Location: index.php');
     exit;
 }
 // Fim - Conexão com o banco e verificação do ID
@@ -23,7 +23,7 @@ $stmt->execute([':id' =>  $id]);
 $registro = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$registro) {
-    header('Location: listar.php');
+    header('Location: index.php');
     exit;
 }
 //Fim - Busca do registro 
@@ -51,7 +51,7 @@ try {
     $stmt->execute([':id' => $id]);
 
     // redireciona de volta pra lista após excluir
-    header('Location: listar.php?msg=excluido');
+    header('Location: index.php?msg=excluido');
     exit;
 } // Chave do try
 
