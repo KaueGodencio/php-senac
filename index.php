@@ -45,15 +45,11 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // ============================================================================
 ?>
 
-<!doctype html>
-<html lang="pt-br">
 
-<head>
-    <meta charset="utf-8">
-    <title>Lista de Cadastros</title>
-</head>
 
-<body>
+<div class="row">
+
+
 
     <h1>Lista de Cadastros</h1>
 
@@ -121,8 +117,8 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <!-- Exibe a foto (ou “--” se não tiver) -->
                         <td>
                             <?php if (!empty($r['foto'])): ?>
-                                
-                                <img src="<?= htmlspecialchars($r['foto']) ?>"  alt="Foto do usuário"       class="img-thumbnail"
+
+                                <img src="<?= htmlspecialchars($r['foto']) ?>" alt="Foto do usuário" class="img-thumbnail"
                                     width="80" height="80">
                             <?php else: ?>
                                 --
@@ -156,6 +152,6 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php endif; ?>
 
-</body>
+</div>
 
 </html>

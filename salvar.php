@@ -142,8 +142,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 include __DIR__ . "/projeto01/includes/header.php";
 ?>
-<div class="container border">
-    <div class="border border-danger">
+<div class="container ">
+    <div class="">
         <?php if ($ok): ?>
             <div class="alert alert-success" role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">

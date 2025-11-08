@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta charset="utf-8">
 <title>Editar Cadastro</title>
 
-<h1>Editar Cadastro</h1>
+
 
 <?php if ($erro): ?>
     <p style="color:red;"><?= htmlspecialchars($erro) ?></p>
@@ -171,55 +171,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Início - Formulário de edição (pré-preenchido) -->
 <!-- =================================================== -->
+<div class="row d-flex justify-content-center">
+    <form class="col-12 col-md-8 col-lg-5 mt-5 pt-5 p-3 mb-5 bg-body-tertiary rounded border shadow-sm  " method="POST" enctype="multipart/form-data">
 
-<form class="p-3 mb-5 bg-body-tertiary rounded border shadow-sm w-100" method="POST" enctype="multipart/form-data">
+        <!-- o atributo enctype serve para avisar ao navegador que o formulário vai enviar arquivos e não só texto -->
+        <h4 class="py-4 mb-0"><b>Edite os dados do cadastro</b></h4>
 
-    <!-- o atributo enctype serve para avisar ao navegador que o formulário vai enviar arquivos e não só texto -->
-    <h4 class="py-4 mb-0"><b>Edite os dados do cadastro</b></h4>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite seu nome" minlength="3" value="<?= htmlspecialchars($registro['nome'] ?? '') ?>">
+        </div>
 
-    <div class="mb-3">
-        <label for="nome" class="form-label">Nome:</label>
-        <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite seu nome" minlength="3" value="<?= htmlspecialchars($registro['nome'] ?? '') ?>">
-    </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail:</label>
+            <input type="email" class="form-control" name="email" placeholder="Digite seu e-mail" required value="<?= htmlspecialchars($registro['email'] ?? '') ?>">
+        </div>
 
-    <div class="mb-3">
-        <label for="email" class="form-label">E-mail:</label>
-        <input type="email" class="form-control" name="email" placeholder="Digite seu e-mail" required value="<?= htmlspecialchars($registro['email'] ?? '') ?>">
-    </div>
+        <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="text"
+                class="form-control"
+                name="telefone"
+                id="telefone"
+                placeholder="(11) 99999-9999"
+                required
+                value="<?= htmlspecialchars($registro['telefone'] ?? '') ?>">
+        </div>
 
-    <div class="mb-3">
-        <label for="telefone" class="form-label">Telefone:</label>
-        <input type="text"
-            class="form-control"
-            name="telefone"
-            id="telefone"
-            placeholder="(11) 99999-9999"
-            required
-            value="<?= htmlspecialchars($registro['telefone'] ?? '') ?>">
-    </div>
+        <div class="mb-3">
+            <label for="foto" class="form-label">Foto:</label>
 
-    <div class="mb-3">
-        <label for="foto" class="form-label">Foto:</label>
+            <!-- Mostra a foto atual se existir -->
+            <?php if (!empty($registro['foto']) && file_exists(__DIR__ . '/' . $registro['foto'])): ?>
+                <div class="mb-2">
+                    <img src="<?= htmlspecialchars($registro['foto']) ?>"
+                        alt="Foto atual"
+                        style="max-width: 120px; border-radius: 6px;">
+                </div>
+            <?php endif; ?>
 
-        <!-- Mostra a foto atual se existir -->
-        <?php if (!empty($registro['foto']) && file_exists(__DIR__ . '/' . $registro['foto'])): ?>
-            <div class="mb-2">
-                <img src="<?= htmlspecialchars($registro['foto']) ?>"
-                    alt="Foto atual"
-                    style="max-width: 120px; border-radius: 6px;">
-            </div>
-        <?php endif; ?>
+            <input type="file" class="form-control" name="foto" id="foto">
+            <!-- Guarda a foto atual para o caso de o usuário não enviar uma nova -->
+            <input type="hidden" name="foto_atual" value="<?= htmlspecialchars($registro['foto'] ?? '') ?>">
+        </div>
 
-        <input type="file" class="form-control" name="foto" id="foto">
-        <!-- Guarda a foto atual para o caso de o usuário não enviar uma nova -->
-        <input type="hidden" name="foto_atual" value="<?= htmlspecialchars($registro['foto'] ?? '') ?>">
-    </div>
-
-    <button class="btn btn-primary w-100" type="submit">Salvar alterações</button>
-    <a href="index.php" class="btn btn-outline-danger w-100 mt-1">Cancelar</a>
+        <button class="btn btn-primary w-100" type="submit">Salvar alterações</button>
+        <a href="index.php" class="btn btn-outline-danger w-100 mt-1">Cancelar</a>
 
 
-</form>
+    </form>
+
+</div>
+
+
 
 
 <!-- =================================================== -->

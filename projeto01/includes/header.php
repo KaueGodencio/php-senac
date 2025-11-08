@@ -42,4 +42,3 @@
 
 <body class="">
 
-    <main class="container"

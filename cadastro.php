@@ -10,14 +10,12 @@
 </head>
 
 <?php
-/* include __DIR__ . "/projeto01/includes/header.php";  */
+include __DIR__ . "/projeto01/includes/header.php";  
 ?>
 
 <div class="row col-12 m-0 vh-100 bg-body-tertiary justify-content-center bg-body-tertiary">
-
-
-    <div class="col-12 col-md-8 col-lg-3 d-flex justify-content-center align-items-center p-0 bs-body-bg ">
-        <form class="p-3 mb-5 bg-body-tertiary rounded border shadow-sm w-100 " action="salvar.php" method="POST" enctype="multipart/form-data">
+    <div class="row d-flex  justify-content-center align-items-center p-0 bs-body-bg ">
+        <form class="col-12 col-md-8 col-lg-5 mt-5  p-3 mb-5 bg-body-tertiary rounded border shadow-sm  " action="salvar.php" method="POST" enctype="multipart/form-data">
             <!-- o atributo enctype serve para avisar ao navegador que o formulario vai enviar arquivos e não so texto -->
             <h4 class=" py-4 mb-0"> <b>Preencha o formulário para se cadastrar!</b> </h4>
       
