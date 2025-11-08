@@ -10,6 +10,7 @@ CREATE DATABASE IF NOT EXISTS projeto_db -- cria o banco de dados caso ele não 
 DROP DATABASE IF EXISTES projeto_db  
 
 
+
 PDO PHP Data Objects = forma do PHP se conecta com o banco de dados
 
 
