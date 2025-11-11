@@ -171,8 +171,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Início - Formulário de edição (pré-preenchido) -->
 <!-- =================================================== -->
-<div class="row d-flex justify-content-center">
-    <form class="col-12 col-md-8 col-lg-5 mt-5 pt-5 p-3 mb-5 bg-body-tertiary rounded border shadow-sm  " method="POST" enctype="multipart/form-data">
+<div class="container d-flex justify-content-center">
+    <form class="col-12 col-md-8 col-lg-6 mt-5 mt-5 p-3 mb-5 bg-body-tertiary rounded border shadow-sm  " method="POST" enctype="multipart/form-data">
 
         <!-- o atributo enctype serve para avisar ao navegador que o formulário vai enviar arquivos e não só texto -->
         <h4 class="py-4 mb-0"><b>Edite os dados do cadastro</b></h4>
@@ -224,7 +224,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 
-
+<?php
+include __DIR__ . "/projeto01/includes/footer.php";
+?>
 
 <!-- =================================================== -->
 <!-- Fim - Formulário de edição -->

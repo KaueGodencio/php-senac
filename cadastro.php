@@ -13,9 +13,9 @@
 include __DIR__ . "/projeto01/includes/header.php";  
 ?>
 
-<div class="row col-12 m-0 vh-100 bg-body-tertiary justify-content-center bg-body-tertiary">
-    <div class="row d-flex  justify-content-center align-items-center p-0 bs-body-bg ">
-        <form class="col-12 col-md-8 col-lg-5 mt-5  p-3 mb-5 bg-body-tertiary rounded border shadow-sm  " action="salvar.php" method="POST" enctype="multipart/form-data">
+<div class="row col-12 m-0 justify-content-center ">
+    <div class="row d-flex  justify-content-center align-items-center p-0  ">
+        <form class="col-12 col-md-8 col-lg-4 p-3 mt-5 mb-5  rounded border shadow-sm  bg-body " action="salvar.php" method="POST" enctype="multipart/form-data">
             <!-- o atributo enctype serve para avisar ao navegador que o formulario vai enviar arquivos e não so texto -->
             <h4 class=" py-4 mb-0"> <b>Preencha o formulário para se cadastrar!</b> </h4>
       
@@ -46,7 +46,7 @@ include __DIR__ . "/projeto01/includes/header.php";
 </div>
 
 <?php
-/* include __DIR__ . "/projeto01/includes/footer.php"; */
+ include __DIR__ . "/projeto01/includes/footer.php"; 
 ?>
 
 </html>

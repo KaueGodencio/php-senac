@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario'])) {
 ?>
 
 <?php $u = $_SESSION['usuario'] ?? null; ?>
+
 <?php if ($u): ?>
     <p>Logado como: <b><?= htmlspecialchars($u['nome']) ?></b> | <a href="logout.php">Sair</a></p>
 <?php endif; ?>

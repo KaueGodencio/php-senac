@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header('Location: login.php?msg=login');
+    exit;
+}
 // ============================================================================
 // CONEXÃO E INCLUSÕES
 // ============================================================================
@@ -47,7 +53,7 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-<div class="row">
+<div class="container bg-body">
 
 
 
@@ -154,4 +160,12 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 </div>
 
+
+
+
+
 </html>
+
+<?php
+include __DIR__ . "/projeto01/includes/footer.php";
+?>
