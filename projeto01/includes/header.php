@@ -11,13 +11,18 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
         crossorigin="anonymous">
 
-   <link href="/php-senac/assets/style.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/php-senac/assets/style.css" rel="stylesheet" crossorigin="anonymous">
 
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-        rel="stylesheet">
-    </li>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"  rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
 </head>
 
 <?php
@@ -29,7 +34,9 @@ $u = $_SESSION['usuario'] ?? null;
 <header>
     <nav class="navbar navbar-expand-lg" style="background: #221d66; height: 90px;">
         <div class="container">
-            <a class="navbar-brand text-white " href=""> <h2> CRUD</h2></a>
+            <a class="navbar-brand text-white " href="">
+                <h2> CRUD</h2>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
