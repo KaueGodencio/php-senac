@@ -1,0 +1,29 @@
+.container-main {
+    height: 690px;
+    display: flex;
+    align-items: center;
+}
+
+.btn_person {
+    background-color: #221d66 !important;
+    border-radius: 100px;
+    color: white;
+    font-weight: bold;
+    
+}
+.btn_person-2 {
+    width: 100px;
+    background-color: #db6c10 !important;
+    border-radius: 100px;
+    color: white;
+    font-weight: bold;
+    
+}
+
+.btn_logut{
+     width: 100px; 
+    border-radius: 100px;
+    color: white;
+    font-weight: bold;
+
+}

@@ -63,12 +63,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!doctype html>
 <meta charset="utf-8">
 <title>Login</title>
+<head>
+       <link href="/php-senac/assets/style.css" rel="stylesheet" crossorigin="anonymous">
+</head>
 
 <?php
 include __DIR__ . "/projeto01/includes/header.php";
 ?>
 
-<div class="container">
+<div class="container container-main ">
 
     <div class="row col-12 m-0 justify-content-center ">
         <div class="row d-flex  justify-content-center align-items-center p-0  ">
@@ -76,7 +79,7 @@ include __DIR__ . "/projeto01/includes/header.php";
                 action="login.php" method="POST" enctype="multipart/form-data">
 
                 <!-- o atributo enctype serve para avisar ao navegador que o formulário vai enviar arquivos e não só texto -->
-                <h4 class="py-3 mb-3 text-center text-primary"><b>Login</b></h4>
+                <h4 class="py-3 mb-3 text-center text-primary fw-bold" ><b>Login</b></h4>
 
                 <!-- Dica de acesso (pode remover depois) -->
                 <div class="alert alert-info py-2 mb-4">
@@ -99,14 +102,15 @@ include __DIR__ . "/projeto01/includes/header.php";
                         <?= htmlspecialchars($erro) ?>
                     </div>
                 <?php endif; ?>
-                <div class="row">
-                    <a class="text-center" href="">Ainda não tenho cadastro</a>
+             
 
-                </div>
-
-                <button class="btn btn-primary w-100 mt-3" type="submit">Entrar</button>
+                <button class="btn  w-100 mt-3 btn_person btn-primary border-0" type="submit">Acessar</button>
             </form>
 
         </div>
     </div>
 </div>
+
+<?php
+include __DIR__ . "/projeto01/includes/footer.php";
+?>

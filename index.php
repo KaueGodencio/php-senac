@@ -51,120 +51,118 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // ============================================================================
 ?>
 
-
-
-<div class="container bg-body">
+<div class="container  bg-body mt-5 p-4 rounded-3" style="min-height: 600px;" >
 
 
 
-    <h1>Lista de Cadastros</h1>
+    <h2 class="fw-bold">Usuários Cadastrados</h2>
+
+
 
     <!-- =========================================================
      FORMULÁRIO DE BUSCA
      ========================================================= -->
     <form method="get">
-
         <div class="d-flex my-3">
             <!-- Campo de texto (mantém o termo pesquisado, se houver) -->
             <input class="form-control" name="busca" type="text" placeholder="Pesquisar..." aria-label="Search" value="<?= htmlspecialchars($busca) ?>" />
 
             <!-- Botão para buscar -->
             <button class="btn btn-outline-success me-3 ms-3" type="submit">Buscar</button>
-            <button class="btn btn-outline-danger  " type="submit"><a href="index.php">Limpar</a></button>
 
             <!-- Link para limpar a busca -->
-
+            <a class="btn btn-outline-danger" href="index.php">Limpar</a>
         </div>
-
     </form>
-
 
     <!-- =========================================================
      EXIBIÇÃO DOS RESULTADOS
      ========================================================= -->
     <?php if (!$registros): ?>
-
         <!-- Caso o banco não retorne nenhum registro -->
-        <p>Nenhum cadastro encontrado.</p>
 
+        <div class="alert alert-danger" role="alert">
+            Nenhum cadastro.
+        </div>
     <?php else: ?>
 
-        <!-- Início da tabela -->
-        <!-- Tabela de usuários -->
-        <table class="table table-striped table-hover align-middle text-center table-bordered w-100">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Foto</th>
-                    <th>Data de Cadastro</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
+        <!-- Card em volta da tabela -->
+        <div class="card shadow-sm">
+            <div class="card-body">
 
-            <tbody>
-                <!-- Loop para percorrer todos os registros -->
-                <?php foreach ($registros as $r): ?>
-                    <tr>
-                        <!-- Exibe o ID -->
-                        <td><?= (int)$r['id'] ?></td>
+                <!-- Tabela responsiva -->
+                <div class="table-responsive">
+                    <div class="d-flex justify-content-end my-2">
+                        <a class="btn btn-primary m-1" href="exportar_csv.php" target="_blank">Exportar CSV</a>
+                        <a class="btn btn-primary m-1" href="exportar_xls.php" target="_blank">Exportar XLS</a>
+                    </div>
+                    <table class="table table-striped table-hover table-bordered table-sm align-middle text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Foto</th>
+                                <th>Data de Cadastro</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Loop para percorrer todos os registros -->
+                            <?php foreach ($registros as $r): ?>
+                                <tr>
+                                    <!-- Exibe o ID -->
+                                    <td><?= (int)$r['id'] ?></td>
 
-                        <!-- Exibe o nome -->
-                        <td><?= htmlspecialchars($r['nome'] ?? '') ?></td>
+                                    <!-- Exibe o nome -->
+                                    <td><?= htmlspecialchars($r['nome'] ?? '') ?></td>
 
-                        <!-- Exibe o e-mail -->
-                        <td><?= htmlspecialchars($r['email'] ?? '') ?></td>
+                                    <!-- Exibe o e-mail -->
+                                    <td><?= htmlspecialchars($r['email'] ?? '') ?></td>
 
-                        <!-- Exibe o telefone -->
-                        <td><?= htmlspecialchars($r['telefone'] ?? '') ?></td>
+                                    <!-- Exibe o telefone -->
+                                    <td><?= htmlspecialchars($r['telefone'] ?? '') ?></td>
 
-                        <!-- Exibe a foto (ou “--” se não tiver) -->
-                        <td>
-                            <?php if (!empty($r['foto'])): ?>
+                                    <!-- Exibe a foto (ou “--” se não tiver) -->
+                                    <td>
+                                        <?php if (!empty($r['foto'])): ?>
+                                            <img src="<?= htmlspecialchars($r['foto']) ?>" alt="Foto do usuário" class="img-thumbnail" width="80" height="80">
+                                        <?php else: ?>
+                                            --
+                                        <?php endif; ?>
+                                    </td>
 
-                                <img src="<?= htmlspecialchars($r['foto']) ?>" alt="Foto do usuário" class="img-thumbnail"
-                                    width="80" height="80">
-                            <?php else: ?>
-                                --
-                            <?php endif; ?>
-                        </td>
+                                    <!-- Exibe a data de cadastro -->
+                                    <td><?= htmlspecialchars($r['data_cadastro'] ?? '') ?></td>
 
-                        <!-- Exibe a data de cadastro -->
-                        <td><?= htmlspecialchars($r['data_cadastro'] ?? '') ?></td>
+                                    <!-- Links de ação: editar e deletar -->
+                                    <td class="d-flex justify-content-center gap-1">
+                                        <a href="editar.php?id=<?= (int)$r['id'] ?>" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Editar">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a href="deletar.php?id=<?= (int)$r['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este registro?')" data-bs-toggle="tooltip" title="Excluir">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
 
-                        <!-- Links de ação: editar e deletar -->
-                        <td>
-                            <a href="editar.php?id=<?= (int)$r['id'] ?>"
-                                class="btn btn-sm btn-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg>
-                            </a>
-                            <a href="deletar.php?id=<?= (int)$r['id'] ?>"
-                                class="btn btn-sm btn-danger"
-                                onclick="return confirm('Tem certeza que deseja excluir este registro?')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+            </div>
+        </div>
 
     <?php endif; ?>
 
 </div>
 
-
-
-
-
-</html>
+<!-- Inicialização de tooltips do Bootstrap -->
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el))
+</script>
 
 <?php
 include __DIR__ . "/projeto01/includes/footer.php";
