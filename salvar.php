@@ -152,7 +152,7 @@ include __DIR__ . "/projeto01/includes/header.php";
                 </svg> Dados salvos com sucesso!
             </div>
 
-            <a class="btn btn-primary" href="index.php">Ver Dados Cadastros</a>
+            <a class="btn  btn_person" href="index.php">Ver Dados Cadastros</a>
 
             <!-- Se não deu certo, entra aqui -->
         <?php else: ?>
@@ -169,7 +169,7 @@ include __DIR__ . "/projeto01/includes/header.php";
             <?php endif; ?>
 
             <!-- Link pra voltar pro formulário -->
-            <a class="btn btn-primary" href="cadastro.php">Voltar</a>
+            <a class="btn btn-primary text-white" href="cadastro.php">Voltar</a>
 
         <?php endif; ?>
     </div>

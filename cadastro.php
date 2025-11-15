@@ -46,7 +46,7 @@ include __DIR__ . "/projeto01/includes/header.php";
                     <input type="file" class="form-control" name="foto" required>
                 </div>
 
-                <button class="btn-primary btn w-100" type="submit">Cadastrar</button>
+                <button class=" btn w-100 btn_person" type="submit">Cadastrar</button>
             </form>
         </div>
 

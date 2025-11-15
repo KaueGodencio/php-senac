@@ -58,13 +58,13 @@ $u = $_SESSION['usuario'] ?? null;
                         <!-- <li class="nav-item">
                             <a class="nav-link active text-white mt-1" aria-current="page" href="index.php">Ver cadastros</a>
                         </li> -->
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link active text-white mt-1 fw-bold" aria-current="page" href="cadastro.php">Cadastrar Novo</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <p class="text-white nav-link m-0 ">
                                 <b><?= htmlspecialchars($u['nome']) ?></b> |
-                                <a class="btn btn-danger btn_logut" href="logout.php">Sair</a>
+                                <a class="btn btn-danger btn_logut" href="logout.php"> Sair</a>
                             </p>
                         </li>
                     <?php endif; ?>
